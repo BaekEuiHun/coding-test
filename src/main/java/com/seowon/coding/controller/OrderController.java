@@ -47,6 +47,7 @@ public class OrderController {
             return ResponseEntity.notFound().build();
         }
     }
+
     
     /**
      * TODO #2: 주문을 생성하는 API 구현
@@ -66,5 +67,16 @@ public class OrderController {
      *   ]
      * }
      */
+
+    @GetMapping("/add")
+    public ResponseEntity<Order> addOrder(@RequestBody String customerName, String customerEmail, List<Long> productIds, List<Integer> quantities) {
+        try {
+            orderService.placeOrder(customerName, customerEmail, productIds, quantities);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     //
 }
